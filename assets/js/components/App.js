@@ -12,6 +12,7 @@ Vue.component('App', {
       <div>
         <template v-if="!$store.getters.isAuthenticated">
           <router-link :to="{ path: '/login' }">Login</router-link>
+          <router-link :to="{ path: '/register' }">Register</router-link>
         </template>
         <template v-else>
           {{ $store.state.auth.email }}
