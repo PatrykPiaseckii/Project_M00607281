@@ -3,6 +3,7 @@ const routes = [
   { path: '/login', component: window.app.views.Login },
   { path: '/register', component: window.app.views.Register },
   { path: '/courses/create', component: window.app.views.CoursesCreate },
+  { path: '/courses/:id/update', component: window.app.views.CoursesUpdate },
 ]
 
 const router = new VueRouter({
