@@ -14,6 +14,8 @@ Vue.component('App', {
           <router-link :to="{ path: '/login' }">Login</router-link>
         </template>
         <template v-else>
+          {{ $store.state.auth.email }}
+
           <button @click="$store.dispatch('logout')">Logout</button>
         </template>
       </div>
