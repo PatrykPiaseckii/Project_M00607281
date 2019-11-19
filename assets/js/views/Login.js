@@ -5,6 +5,7 @@ const Login = Vue.component('Login', {
         email: '',
         password: '',
       },
+      errors: [],
     }
   },
   methods: {
@@ -27,6 +28,10 @@ const Login = Vue.component('Login', {
       }
 
       if (response.status !== 200) {
+        const { errors } = await response.json()
+
+        this.errors = errors
+
         return
       }
 
@@ -45,6 +50,14 @@ const Login = Vue.component('Login', {
       <h1>
         Login
       </h1>
+
+      <div v-if="errors">
+        <ul>
+          <li v-for="error in errors" :key="error">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
 
       <form @submit.prevent="submit">
         <div>
