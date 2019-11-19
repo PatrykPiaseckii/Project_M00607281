@@ -1,8 +1,10 @@
 const store = new Vuex.Store({
   state: {
+    message: '',
     auth: null,
   },
   mutations: {
+    message: (state, message) => (state.message = message),
     _auth: (state, auth) => (state.auth = auth),
   },
   getters: {

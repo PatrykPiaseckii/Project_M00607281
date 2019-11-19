@@ -42,6 +42,7 @@ const Login = Vue.component('Login', {
         email,
         type,
       })
+      this.$store.commit('message', 'Welcome back!')
       this.$router.push({ path: '/' })
     },
   },
