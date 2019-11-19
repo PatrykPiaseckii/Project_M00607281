@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   },
   getters: {
     isAuthenticated: ({ auth }) => auth !== null,
+    isProvider: state => state.auth && state.auth.type === 'provider',
   },
   actions: {
     auth: ({ commit }, auth) => {

@@ -17,6 +17,8 @@ Vue.component('App', {
         <template v-else>
           {{ $store.state.auth.email }}
 
+          <router-link v-if="$store.getters.isProvider" :to="{ path: '/courses/create' }">Add a course</router-link>
+
           <button @click="$store.dispatch('logout')">Logout</button>
         </template>
       </div>
