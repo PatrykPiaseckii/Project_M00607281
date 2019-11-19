@@ -6,14 +6,21 @@ const store = new Vuex.Store({
   mutations: {
     message: (state, message) => (state.message = message),
     _auth: (state, auth) => (state.auth = auth),
+    _logout: state => (state.auth = null),
   },
   getters: {
+    isAuthenticated: ({ auth }) => auth !== null,
   },
   actions: {
     auth: ({ commit }, auth) => {
       commit('_auth', auth)
 
       localStorage.setItem('app.auth', JSON.stringify(auth))
+    },
+    logout: ({ commit }) => {
+      commit('_logout', null)
+
+      localStorage.removeItem('app.auth')
     },
     init({ commit }) {
       const auth = JSON.parse(localStorage.getItem('app.auth'))
