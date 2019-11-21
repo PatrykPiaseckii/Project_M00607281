@@ -98,52 +98,56 @@ const Home = Vue.component('Home', {
   },
   template: `
     <div>
-      <input type="text" v-model="searchTerm" />
-      <select v-model="filters.topic">
-        <option value="" selected>No filter</option>
-        <option v-for="topic in availableTopics" :key="topic" :value="topic">{{ topic }}</option>
-      </select>
+      <div class="filters">
+        <input type="text" v-model="searchTerm" placeholder="Search..." />
+        <select v-model="filters.topic">
+          <option value="" selected>No filter</option>
+          <option v-for="topic in availableTopics" :key="topic" :value="topic">{{ topic }}</option>
+        </select>
 
-      price:
-      <input type="text" placeholder="Price greater than" v-model="filters.priceGreaterThan" />
-      <input type="text" placeholder="Price less than" v-model="filters.priceLessThan" />
+        price:
+        <input type="text" placeholder="Price greater than" v-model="filters.priceGreaterThan" />
+        <input type="text" placeholder="Price less than" v-model="filters.priceLessThan" />
 
-      review:
-      <input type="text" placeholder="Review greater than" v-model="filters.reviewGreaterThan" />
-      <input type="text" placeholder="Review less than" v-model="filters.reviewLessThan" />
+        review:
+        <input type="text" placeholder="Review greater than" v-model="filters.reviewGreaterThan" />
+        <input type="text" placeholder="Review less than" v-model="filters.reviewLessThan" />
 
-      sort by:
-      <button @click="setSort('topic')">
-        Topic
-        {{ sort.by == 'topic' ? (sort.isDescending ? '↓' : '↑') : '' }}
-      </button>
-      <button @click="setSort('price')">
-        Price
-        {{ sort.by == 'price' ? (sort.isDescending ? '↓' : '↑') : '' }}
-      </button>
-      <button @click="setSort('review')">
-        Review
-        {{ sort.by == 'review' ? (sort.isDescending ? '↓' : '↑') : '' }}
-      </button>
-
-      <div v-if="$store.getters.isProvider">
-        <h1>Your courses</h1>
-        <Course
-          v-for="course in ownCourses"
-          :key="course.id"
-          v-bind="course"
-          @leftReview="review => leftReview(course.id, review)"
-          @remove="removeCourse"
-        />
+        sort by:
+        <button @click="setSort('topic')">
+          Topic
+          {{ sort.by == 'topic' ? (sort.isDescending ? '↓' : '↑') : '' }}
+        </button>
+        <button @click="setSort('price')">
+          Price
+          {{ sort.by == 'price' ? (sort.isDescending ? '↓' : '↑') : '' }}
+        </button>
+        <button @click="setSort('review')">
+          Review
+          {{ sort.by == 'review' ? (sort.isDescending ? '↓' : '↑') : '' }}
+        </button>
       </div>
-      <div>
-        <h1>All courses</h1>
-        <Course
-          v-for="course in coursesFiltered"
-          :key="course.id"
-          v-bind="course"
-          @leftReview="review => leftReview(course.id, review)"
-        />
+
+      <div class="courses">
+        <div v-if="$store.getters.isProvider">
+          <h1>Your courses</h1>
+          <Course
+            v-for="course in ownCourses"
+            :key="course.id"
+            v-bind="course"
+            @leftReview="review => leftReview(course.id, review)"
+            @remove="removeCourse"
+          />
+        </div>
+        <div>
+          <h1>All courses</h1>
+          <Course
+            v-for="course in coursesFiltered"
+            :key="course.id"
+            v-bind="course"
+            @leftReview="review => leftReview(course.id, review)"
+          />
+        </div>
       </div>
     </div>
   `,

@@ -1,0 +1,73 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.app {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.alert {
+
+}
+
+nav {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 1px 1px 6px #ccc;
+}
+
+.buttons a,
+.buttons button {
+  color: cornflowerblue;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: slategray;
+  padding-top: 2rem;
+}
+
+.courses {
+  margin-left: 2rem;
+  padding-top: 2rem;
+}
+
+.course {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid slategray;
+}
+
+input[type="text"] {
+  padding: .5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: transparent;
+  font-size: 1rem;
+  color: white;
+}

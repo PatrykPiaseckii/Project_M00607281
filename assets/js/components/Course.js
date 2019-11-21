@@ -69,7 +69,7 @@ Vue.component('Course', {
     },
   },
   template: `
-    <div>
+    <div class="course">
       {{ this.id }}
       | {{ this.title }}
       | {{ this.author }}
