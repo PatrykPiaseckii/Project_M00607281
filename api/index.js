@@ -1,4 +1,4 @@
-const DATABASE_URL = 'mongodb://localhost:27017'
+const DATABASE_URL = 'mongodb://root:password@localhost:27017'
 const DATABASE_NAME = 'app'
 
 const express = require('express')
