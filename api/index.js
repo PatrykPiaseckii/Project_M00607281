@@ -1,14 +1,10 @@
 const express = require('express')
+const Router = require('./modules/Router.js')
+
 const app = express()
-const router = express.Router({ caseSensitive: true })
-
-const UsersController = require('./controllers/UsersController')
-
-const usersController = new UsersController()
-
-router.post('/users', usersController.store)
+const router = new Router(express.Router)
 
 app.use(express.json())
-app.use('/api', router)
+app.use('/api', router.setup())
 
 app.listen(3000, () => console.log('Started server at http://localhost:3000'))
