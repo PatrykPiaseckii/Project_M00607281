@@ -2,7 +2,23 @@ class UsersController {
   constructor(db) {
     this.db = db
 
+    this.show = this.show.bind(this)
     this.store = this.store.bind(this)
+  }
+
+  async show({ params: { email } }, res) {
+    const collection = this.db.collection('users')
+
+    const user = await collection.findOne({
+      email: { $eq: email },
+    })
+
+    if (!user) {
+      res.status(404).send({ errors: ['User not found'] })
+      return
+    }
+
+    res.status(200).send(this._format(user))
   }
 
   async store({ body: { email, password } }, res) {

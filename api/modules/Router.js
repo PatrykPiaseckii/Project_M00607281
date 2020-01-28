@@ -12,6 +12,7 @@ class Router {
 
     const usersController = new UsersController(db)
 
+    expressRouter.get('/users/:email', usersController.show)
     expressRouter.post('/users', usersController.store)
 
     return expressRouter
