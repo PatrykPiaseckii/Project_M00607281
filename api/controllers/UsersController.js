@@ -16,11 +16,11 @@ class UsersController {
       return
     }
 
-    res.status(201).send({
-      _id: user._id,
-      email: user.email,
-      type: user.type,
-    })
+    res.status(201).send(this._format(user))
+  }
+
+  _format({ _id, email, type }) {
+    return { _id, email, type }
   }
 }
 
