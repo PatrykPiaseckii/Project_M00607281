@@ -3,6 +3,8 @@ const UsersController = require('../controllers/UsersController')
 class Router {
   constructor(expressRouter) {
     this.expressRouter = expressRouter
+
+    this.setup = this.setup.bind(this)
   }
 
   setup(db) {
