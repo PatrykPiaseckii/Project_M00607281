@@ -1,6 +1,26 @@
 class UsersController {
-  store({ body: { email, password } }, res) {
-    res.send({ email, password })
+  constructor(db) {
+    this.db = db
+
+    this.store = this.store.bind(this)
+  }
+
+  async store({ body: { email, password } }, res) {
+    const collection = this.db.collection('users')
+
+    const user = { email, password, type: 'student' }
+    const { result } = await collection.insertOne(user)
+
+    if (!result.ok) {
+      res.status(500).send({ errors: ['An internal error occurred'] })
+      return
+    }
+
+    res.status(201).send({
+      _id: user._id,
+      email: user.email,
+      type: user.type,
+    })
   }
 }
 

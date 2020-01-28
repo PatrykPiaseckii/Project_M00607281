@@ -10,7 +10,7 @@ class Router {
   setup(db) {
     const expressRouter = this.expressRouter({ caseSensitive: true })
 
-    const usersController = new UsersController()
+    const usersController = new UsersController(db)
 
     expressRouter.post('/users', usersController.store)
 
