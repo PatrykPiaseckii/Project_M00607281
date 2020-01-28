@@ -57,13 +57,10 @@ const Home = Vue.component('Home', {
       this.sort.isDescending = !this.sort.isDescending
     },
     async leftReview(courseId, review) {
-      // const response = await fetch(`/api/courses/${courseId}/reviews`, {
-      //   method: 'POST',
-      //   body: JSON.stringify({ review }),
-      // })
-      const response = {
-        status: 201,
-      }
+      const response = await fetch(`/api/courses/${courseId}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify({ review }),
+      })
 
       if (response.status !== 201) {
         this.$store.commit('message', 'There was an error when adding a review')
@@ -76,13 +73,9 @@ const Home = Vue.component('Home', {
       }
     },
     async removeCourse(courseId) {
-      // const response = await fetch(`/api/courses/${courseId}`, {
-      //   method: 'DELETE',
-      // })
-
-      const response = {
-        status: 200,
-      }
+      const response = await fetch(`/api/courses/${courseId}`, {
+        method: 'DELETE',
+      })
 
       if (response.status !== 200) {
         this.$store.commit('message', 'There was an error when removing a course')

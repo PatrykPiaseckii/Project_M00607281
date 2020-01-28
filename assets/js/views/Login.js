@@ -10,22 +10,13 @@ const Login = Vue.component('Login', {
   },
   methods: {
     async submit() {
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(this.form),
-      // })
-
-      const response = {
-        json: () => ({
-          token: 'token-value',
-          email: this.form.email,
-          type: 'provider', // or student
-        }),
-        status: 200,
-      }
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.form),
+      })
 
       if (response.status !== 200) {
         const { errors } = await response.json()

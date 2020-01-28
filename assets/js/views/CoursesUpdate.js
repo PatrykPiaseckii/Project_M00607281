@@ -17,31 +17,20 @@ const CoursesUpdate = Vue.component('CoursesUpdate', {
     async submit() {
       const { id } = this.$route.params
 
-      // const response = await fetch(`/api/courses/${id}`, {
-      //   method: 'PATCH',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     title: this.form.title,
-      //     topic: this.form.topic,
-      //     price: this.form.price,
-      //     location: this.form.location,
-      //     time: `${this.form.date}T${this.form.time}:00`,
-      //     length: this.form.length,
-      //   }),
-      // })
-
-      const response = {
-        status: 200,
-      }
-
-      // const response = {
-      //   status: 400,
-      //   json: () => ({
-      //     errors: ['Price must be a positive number'],
-      //   }),
-      // }
+      const response = await fetch(`/api/courses/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: this.form.title,
+          topic: this.form.topic,
+          price: this.form.price,
+          location: this.form.location,
+          time: `${this.form.date}T${this.form.time}:00`,
+          length: this.form.length,
+        }),
+      })
 
       if (response.status !== 200) {
         const { errors } = await response.json()

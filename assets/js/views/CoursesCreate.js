@@ -15,31 +15,20 @@ const CoursesCreate = Vue.component('CoursesCreate', {
   },
   methods: {
     async submit() {
-      // const response = await fetch('/api/courses', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     title: this.form.title,
-      //     topic: this.form.topic,
-      //     price: this.form.price,
-      //     location: this.form.location,
-      //     time: `${this.form.date}T${this.form.time}:00`,
-      //     length: this.form.length,
-      //   }),
-      // })
-
-      const response = {
-        status: 201,
-      }
-
-      // const response = {
-      //   status: 400,
-      //   json: () => ({
-      //     errors: ['Price must be a positive number'],
-      //   }),
-      // }
+      const response = await fetch('/api/courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: this.form.title,
+          topic: this.form.topic,
+          price: this.form.price,
+          location: this.form.location,
+          time: `${this.form.date}T${this.form.time}:00`,
+          length: this.form.length,
+        }),
+      })
 
       if (response.status !== 201) {
         const { errors } = await response.json()
