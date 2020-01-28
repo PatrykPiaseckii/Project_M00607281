@@ -10,8 +10,8 @@ const router = new Router(express.Router)
 
 const main = async () => {
   const mongoClient = new MongoClient(DATABASE_URL, { useUnifiedTopology: true })
-  const connection = await mongoClient.connect()
-  const db = connection.db(DATABASE_NAME)
+  await mongoClient.connect()
+  const db = mongoClient.db(DATABASE_NAME)
 
   app.use(express.json())
   app.use('/api', router.setup(db))
