@@ -73,7 +73,8 @@ const CoursesUpdate = Vue.component('CoursesUpdate', {
   },
   created() {
     if (!this.$store.getters.isProvider) {
-      return this.$router.push({ path: '/' })
+      this.$router.push({ path: '/' })
+      return
     }
 
     this.fetchCourse()

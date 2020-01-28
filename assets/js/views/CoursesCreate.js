@@ -54,9 +54,11 @@ const CoursesCreate = Vue.component('CoursesCreate', {
     },
   },
   created() {
-    if (!this.$store.getters.isProvider) {
-      return this.$router.push({ path: '/' })
+    if (this.$store.getters.isProvider) {
+      return
     }
+
+    this.$router.push({ path: '/' })
   },
   template: `
     <div>
