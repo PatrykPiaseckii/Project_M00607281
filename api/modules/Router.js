@@ -5,7 +5,7 @@ class Router {
     this.expressRouter = expressRouter
   }
 
-  setup() {
+  setup(db) {
     const expressRouter = this.expressRouter({ caseSensitive: true })
 
     const usersController = new UsersController()
