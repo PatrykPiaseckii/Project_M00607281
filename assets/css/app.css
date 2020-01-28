@@ -11,10 +11,6 @@ body {
   flex-direction: column;
 }
 
-.alert {
-
-}
-
 nav {
   padding: 1.5rem 2rem;
   display: flex;
