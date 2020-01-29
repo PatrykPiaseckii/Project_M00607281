@@ -11,10 +11,10 @@ class CoursesController {
     this.destroy = this.destroy.bind(this)
   }
 
-  async index(req, res) {
+  async index({ query: { provider } }, res) {
     const collection = this.db.collection('courses')
 
-    const courses = await collection.find().toArray()
+    const courses = await collection.find(provider ? { 'author.email': provider } : {}).toArray()
 
     res.status(200).send(courses)
   }
