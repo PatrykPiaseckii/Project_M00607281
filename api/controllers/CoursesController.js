@@ -84,7 +84,7 @@ class CoursesController {
       return
     }
 
-    res.sendStatus(200)
+    res.status(200).send('')
   }
 
   async destroy({ params: { id } }, res) {
@@ -94,7 +94,7 @@ class CoursesController {
       _id: { $eq: ObjectId(id) },
     })
 
-    res.sendStatus(200)
+    res.status(200).send('')
   }
 }
 

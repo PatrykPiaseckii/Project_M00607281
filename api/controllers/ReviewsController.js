@@ -34,7 +34,7 @@ class ReviewsController {
       return
     }
 
-    res.sendStatus(200)
+    res.status(201).send('')
   }
 
   async update({ user, params: { courseId }, body: { review } }, res) {
@@ -57,7 +57,7 @@ class ReviewsController {
       return
     }
 
-    res.sendStatus(200)
+    res.status(200).send('')
   }
 }
 
