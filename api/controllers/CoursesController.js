@@ -34,16 +34,15 @@ class CoursesController {
     res.status(200).send(course)
   }
 
-  async store({ body: { title, topic, price, location, time, length } }, res) {
-    const author = {
-      name: 'Jane Doe',
-      email: 'jane@example.com',
-    }
+  async store({ user, body: { title, topic, price, location, time, length } }, res) {
     const collection = this.db.collection('courses')
 
     const course = {
       title,
-      author,
+      provider: {
+        _id: user._id,
+        email: user.email,
+      },
       topic,
       price,
       reviews: [],
