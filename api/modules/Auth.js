@@ -22,11 +22,14 @@ class Auth {
       }
 
       const [, token] = header.split(' ')
+      const user = this.verify(token)
 
-      if (!this.verify(token)) {
+      if (!user) {
         res.sendStatus(403)
         return
       }
+
+      req.user = user
 
       next()
     }
@@ -38,12 +41,10 @@ class Auth {
 
   verify(token) {
     try {
-      jwt.verify(token, KEY)
+      return jwt.verify(token, KEY)
     } catch (e) {
       return false
     }
-
-    return true
   }
 
   _format({ _id, email, type }) {
