@@ -10,7 +10,7 @@ const Register = Vue.component('Register', {
   },
   methods: {
     async submit() {
-      const response = await fetch('/api/users', {
+      const response = await fetch(`${window.app.api.url}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

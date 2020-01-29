@@ -40,16 +40,21 @@ const Home = Vue.component('Home', {
     },
     ownCourses() {
       return this.$store.getters.isProvider
-        ? this.coursesFiltered.filter(({ email }) => this.$store.state.auth.email === email)
+        ? this.coursesFiltered.filter(({ provider: { _id } }) => this.$store.state.auth._id === _id)
         : []
     },
   },
   methods: {
     async fetchCourses() {
-      const response = await fetch('/api/courses')
+      const response = await fetch(`${window.app.api.url}/api/courses`)
       const data = await response.json()
 
-      this.courses = data
+      this.courses = data.map(course => ({
+        ...course,
+        review: course.reviews.length
+          ? course.reviews.reduce((value, { review }) => review + value, 0) / course.reviews.length
+          : 0,
+      }))
     },
     setSort(by) {
       this.sort.by = by
@@ -57,9 +62,13 @@ const Home = Vue.component('Home', {
       this.sort.isDescending = !this.sort.isDescending
     },
     async leftReview(courseId, review) {
-      const response = await fetch(`/api/courses/${courseId}/reviews`, {
+      const response = await fetch(`${window.app.api.url}/api/courses/${courseId}/reviews`, {
         method: 'POST',
         body: JSON.stringify({ review }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.$store.state.auth.token}`,
+        },
       })
 
       if (response.status !== 201) {
@@ -67,14 +76,15 @@ const Home = Vue.component('Home', {
       } else {
         this.$store.commit('message', 'Review added successfully!')
 
-        const course = this.courses.find(({ id }) => id === courseId)
-        course.reviewLeftByAuthenticatedUser = review
-        course.reviewsCount += 1
+        this.fetchCourses()
       }
     },
     async removeCourse(courseId) {
-      const response = await fetch(`/api/courses/${courseId}`, {
+      const response = await fetch(`${window.app.api.url}/api/courses/${courseId}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${this.$store.state.auth.token}`,
+        },
       })
 
       if (response.status !== 200) {
@@ -82,7 +92,7 @@ const Home = Vue.component('Home', {
       } else {
         this.$store.commit('message', 'Course removed successfully!')
 
-        this.courses = this.courses.filter(({ id }) => id !== courseId)
+        this.fetchCourses()
       }
     },
   },
@@ -126,9 +136,9 @@ const Home = Vue.component('Home', {
           <h1>Your courses</h1>
           <Course
             v-for="course in ownCourses"
-            :key="course.id"
+            :key="course._id"
             v-bind="course"
-            @leftReview="review => leftReview(course.id, review)"
+            @leftReview="review => leftReview(course._id, review)"
             @remove="removeCourse"
           />
         </div>
@@ -136,9 +146,9 @@ const Home = Vue.component('Home', {
           <h1>All courses</h1>
           <Course
             v-for="course in coursesFiltered"
-            :key="course.id"
+            :key="course._id"
             v-bind="course"
-            @leftReview="review => leftReview(course.id, review)"
+            @leftReview="review => leftReview(course._id, review)"
           />
         </div>
       </div>

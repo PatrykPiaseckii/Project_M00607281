@@ -17,17 +17,18 @@ const CoursesUpdate = Vue.component('CoursesUpdate', {
     async submit() {
       const { id } = this.$route.params
 
-      const response = await fetch(`/api/courses/${id}`, {
+      const response = await fetch(`${window.app.api.url}/api/courses/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.$store.state.auth.token}`,
         },
         body: JSON.stringify({
           title: this.form.title,
           topic: this.form.topic,
-          price: this.form.price,
+          price: parseFloat(this.form.price),
           location: this.form.location,
-          time: `${this.form.date}T${this.form.time}:00`,
+          time: `${this.form.date}T${this.form.time}`,
           length: this.form.length,
         }),
       })
@@ -46,7 +47,11 @@ const CoursesUpdate = Vue.component('CoursesUpdate', {
     async fetchCourse() {
       const { id } = this.$route.params
 
-      const response = await fetch(`/api/courses/${id}`)
+      const response = await fetch(`${window.app.api.url}/api/courses/${id}`, {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.auth.token}`,
+        },
+      })
       const { title, topic, price, location, time, length } = await response.json()
 
       this.form = {

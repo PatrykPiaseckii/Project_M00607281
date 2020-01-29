@@ -10,7 +10,7 @@ const Login = Vue.component('Login', {
   },
   methods: {
     async submit() {
-      const response = await fetch('/api/login', {
+      const response = await fetch(`${window.app.api.url}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,9 +26,10 @@ const Login = Vue.component('Login', {
         return
       }
 
-      const { token, email, type } = await response.json()
+      const { _id, token, email, type } = await response.json()
 
       this.$store.dispatch('auth', {
+        _id,
         token,
         email,
         type,

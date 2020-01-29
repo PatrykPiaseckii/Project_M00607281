@@ -15,10 +15,11 @@ const CoursesCreate = Vue.component('CoursesCreate', {
   },
   methods: {
     async submit() {
-      const response = await fetch('/api/courses', {
+      const response = await fetch(`${window.app.api.url}/api/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.$store.state.auth.token}`,
         },
         body: JSON.stringify({
           title: this.form.title,
