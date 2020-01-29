@@ -6,6 +6,7 @@ class CoursesController {
 
     this.index = this.index.bind(this)
     this.show = this.show.bind(this)
+    this.store = this.store.bind(this)
   }
 
   async index(req, res) {
@@ -29,6 +30,33 @@ class CoursesController {
     }
 
     res.status(200).send(course)
+  }
+
+  async store({ body: { title, topic, price, location, time, length } }, res) {
+    const author = {
+      name: 'Jane Doe',
+      email: 'jane@example.com',
+    }
+    const collection = this.db.collection('courses')
+
+    const course = {
+      title,
+      author,
+      topic,
+      price,
+      reviews: [],
+      location,
+      time,
+      length,
+    }
+    const { result } = await collection.insertOne(course)
+
+    if (!result.ok) {
+      res.status(500).send({ errors: ['An internal error occurred'] })
+      return
+    }
+
+    res.status(201).send(course)
   }
 }
 
