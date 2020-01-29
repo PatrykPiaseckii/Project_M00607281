@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const KEY = '3287d53e-53b7-4302-aa40-e2bf25c2b294'
+const ROUTES_WITHOUT_AUTH = ['/login', '/users', '/courses']
 
 class Auth {
   constructor() {
@@ -9,7 +10,7 @@ class Auth {
 
   middleware() {
     return (req, res, next) => {
-      if (req.url === '/login') {
+      if (ROUTES_WITHOUT_AUTH.includes(req.url)) {
         next()
         return
       }
