@@ -7,6 +7,7 @@ class CoursesController {
     this.index = this.index.bind(this)
     this.show = this.show.bind(this)
     this.store = this.store.bind(this)
+    this.destroy = this.destroy.bind(this)
   }
 
   async index(req, res) {
@@ -57,6 +58,16 @@ class CoursesController {
     }
 
     res.status(201).send(course)
+  }
+
+  async destroy({ params: { id } }, res) {
+    const collection = this.db.collection('courses')
+
+    await collection.deleteOne({
+      _id: { $eq: ObjectId(id) },
+    })
+
+    res.sendStatus(200)
   }
 }
 
