@@ -7,6 +7,7 @@ class CoursesController {
     this.index = this.index.bind(this)
     this.show = this.show.bind(this)
     this.store = this.store.bind(this)
+    this.update = this.update.bind(this)
     this.destroy = this.destroy.bind(this)
   }
 
@@ -58,6 +59,33 @@ class CoursesController {
     }
 
     res.status(201).send(course)
+  }
+
+  async update({ params: { id }, body: { title, topic, price, location, time, length } }, res) {
+    const collection = this.db.collection('courses')
+
+    const result = await collection.findOneAndUpdate(
+      {
+        _id: { $eq: ObjectId(id) },
+      },
+      {
+        $set: {
+          ...(title ? { title } : {}),
+          ...(topic ? { topic } : {}),
+          ...(price ? { price } : {}),
+          ...(location ? { location } : {}),
+          ...(time ? { time } : {}),
+          ...(length ? { length } : {}),
+        },
+      }
+    )
+
+    if (!result.ok) {
+      res.status(500).send({ errors: ['An internal error occurred'] })
+      return
+    }
+
+    res.sendStatus(200)
   }
 
   async destroy({ params: { id } }, res) {

@@ -19,6 +19,7 @@ class Router {
     expressRouter.get('/courses', coursesController.index)
     expressRouter.post('/courses', coursesController.store)
     expressRouter.get('/courses/:id', coursesController.show)
+    expressRouter.patch('/courses/:id', coursesController.update)
     expressRouter.delete('/courses/:id', coursesController.destroy)
 
     return expressRouter
