@@ -1,6 +1,7 @@
 const AuthController = require('../controllers/AuthController')
 const UsersController = require('../controllers/UsersController')
 const CoursesController = require('../controllers/CoursesController')
+const ReviewsController = require('../controllers/ReviewsController')
 
 class Router {
   constructor(expressRouter) {
@@ -17,6 +18,7 @@ class Router {
     const authController = new AuthController(db, auth)
     const usersController = new UsersController(db)
     const coursesController = new CoursesController(db)
+    const reviewsController = new ReviewsController(db)
 
     expressRouter.post('/login', authController.login)
     expressRouter.get('/users/:email', usersController.show)
@@ -26,6 +28,8 @@ class Router {
     expressRouter.get('/courses/:id', coursesController.show)
     expressRouter.patch('/courses/:id', coursesController.update)
     expressRouter.delete('/courses/:id', coursesController.destroy)
+    expressRouter.post('/courses/:courseId/reviews', reviewsController.store)
+    expressRouter.patch('/courses/:courseId/reviews', reviewsController.update)
 
     return expressRouter
   }
