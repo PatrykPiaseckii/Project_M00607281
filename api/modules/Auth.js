@@ -18,7 +18,7 @@ class Auth {
       const header = req.headers.authorization
 
       if (!header || header.split(' ').length !== 2) {
-        res.sendStatus(401)
+        res.status(401).send({ errors: ['Unauthenticated'] })
         return
       }
 
@@ -26,7 +26,7 @@ class Auth {
       const user = this.verify(token)
 
       if (!user) {
-        res.sendStatus(403)
+        res.status(403).send({ errors: ['Unauthorized'] })
         return
       }
 
