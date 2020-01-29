@@ -1,8 +1,7 @@
-const jwt = require('jsonwebtoken')
-
 class AuthController {
-  constructor(db) {
+  constructor(db, auth) {
     this.db = db
+    this.auth = auth
 
     this.login = this.login.bind(this)
   }
@@ -24,7 +23,7 @@ class AuthController {
       return
     }
 
-    const token = jwt.sign(this._format(user), '3287d53e-53b7-4302-aa40-e2bf25c2b294')
+    const token = this.auth.sign(user)
 
     res.status(200).send({
       ...this._format(user),

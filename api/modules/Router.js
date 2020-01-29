@@ -9,10 +9,12 @@ class Router {
     this.setup = this.setup.bind(this)
   }
 
-  setup(db) {
+  setup(db, auth) {
     const expressRouter = this.expressRouter({ caseSensitive: true })
 
-    const authController = new AuthController(db)
+    expressRouter.use(auth.middleware())
+
+    const authController = new AuthController(db, auth)
     const usersController = new UsersController(db)
     const coursesController = new CoursesController(db)
 
