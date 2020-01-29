@@ -1,3 +1,4 @@
+const AuthController = require('../controllers/AuthController')
 const UsersController = require('../controllers/UsersController')
 const CoursesController = require('../controllers/CoursesController')
 
@@ -11,9 +12,11 @@ class Router {
   setup(db) {
     const expressRouter = this.expressRouter({ caseSensitive: true })
 
+    const authController = new AuthController(db)
     const usersController = new UsersController(db)
     const coursesController = new CoursesController(db)
 
+    expressRouter.post('/login', authController.login)
     expressRouter.get('/users/:email', usersController.show)
     expressRouter.post('/users', usersController.store)
     expressRouter.get('/courses', coursesController.index)
