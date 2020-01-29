@@ -17,6 +17,7 @@ class Router {
     expressRouter.get('/users/:email', usersController.show)
     expressRouter.post('/users', usersController.store)
     expressRouter.get('/courses', coursesController.index)
+    expressRouter.get('/courses/:id', coursesController.show)
 
     return expressRouter
   }
