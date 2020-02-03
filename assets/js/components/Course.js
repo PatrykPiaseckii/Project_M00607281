@@ -51,6 +51,9 @@ Vue.component('Course', {
     reviewsCount() {
       return this.reviews.length
     },
+    reviewFormatted() {
+      return Math.round(this.review * 100) / 100
+    },
     reviewLeftByAuthenticatedUser() {
       const review = this.reviews.find(({ user_id }) => user_id === this.$store.state.auth._id)
 
@@ -78,7 +81,7 @@ Vue.component('Course', {
       | {{ location }}
       | {{ timeFormatted }}
       | {{ lengthFormatted }}
-      | review: {{ review }} ({{ reviewsCount }})
+      | review: {{ reviewFormatted }} ({{ reviewsCount }})
 
       <div v-if="$store.getters.isAuthenticated && provider.email !== $store.state.auth.email">
         <select :value="reviewLeftByAuthenticatedUser" @input="changed" v-if="!reviewLeftByAuthenticatedUser">
