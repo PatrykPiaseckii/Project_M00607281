@@ -14,7 +14,7 @@ class CoursesController {
   async index({ query: { provider } }, res) {
     const collection = this.db.collection('courses')
 
-    const courses = await collection.find(provider ? { 'author.email': provider } : {}).toArray()
+    const courses = await collection.find(provider ? { 'provider.email': provider } : {}).toArray()
 
     res.status(200).send(courses)
   }
