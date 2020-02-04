@@ -4,6 +4,7 @@ const Register = Vue.component('Register', {
       form: {
         email: '',
         password: '',
+        type: '',
       },
       errors: [],
     }
@@ -56,6 +57,17 @@ const Register = Vue.component('Register', {
           <label for="password">
             Password
             <input type="password" placeholder="ilovecats" v-model="form.password" required />
+          </label>
+        </div>
+        
+        <div>
+         <label for="student">
+            Student
+            <input type="radio" name="type" v-model="form.type" value="student" required />
+          </label>
+          <label for="provider">
+            Provider
+            <input type="radio" name="type" v-model="form.type" value="provider" required />
           </label>
         </div>
 

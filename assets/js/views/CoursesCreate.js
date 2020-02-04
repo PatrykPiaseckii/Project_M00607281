@@ -109,7 +109,7 @@ const CoursesCreate = Vue.component('CoursesCreate', {
         </div>
 
         <div>
-          <button type="submit">Login</button>
+          <button type="submit">Add</button>
         </div>
       </form>
     </div>

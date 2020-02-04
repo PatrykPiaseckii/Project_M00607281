@@ -21,10 +21,19 @@ class UsersController {
     res.status(200).send(this._format(user))
   }
 
-  async store({ body: { email, password } }, res) {
+  async store({ body: { email, password, type } }, res) {
     const collection = this.db.collection('users')
 
-    const user = { email, password, type: 'student' }
+    const dbUser = await collection.findOne({
+      email: { $eq: email },
+    })
+
+    if (dbUser) {
+      res.status(400).send({ errors: ['User already exists'] })
+      return
+    }
+
+    const user = { email, password, type }
     const { result } = await collection.insertOne(user)
 
     if (!result.ok) {

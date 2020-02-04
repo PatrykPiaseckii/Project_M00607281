@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const KEY = '3287d53e-53b7-4302-aa40-e2bf25c2b294'
 const ROUTES_WITHOUT_AUTH = [
   { url: '/login', method: 'POST' },
-  { url: '/users', method: 'GET' },
+  { url: '/users', method: 'POST' },
   { url: '/courses', method: 'GET' },
 ]
 
